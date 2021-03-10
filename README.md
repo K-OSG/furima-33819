@@ -60,6 +60,8 @@
 | address       | string     | null: false                    |
 | bulding       | string     |                                |
 | phone_number  | string     | null: false                    |
+| consumer      | references | null: false, foreign_key: true |
+
 
 ### Association
 
