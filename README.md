@@ -11,31 +11,31 @@
 | lastname           | string | null: false               |
 | fristname_kana     | string | null: false               |
 | lastname_kane      | string | null: false               |
-| birth_date         | data   | null: false               |
+| birth_date         | date   | null: false               |
 
 ### Association
 
 - has_many :items
-- has_one :consumers
+- has_many :consumers
 
 ## items テーブル
 
-| Column      | Type       | Options                        |
-| ----------- | ---------- | ------------------------------ |
-| name        | string     | null: false                    |
-| description | text       | null: false                    |
-| categories  | integer    | null: false                    |
-| satatus     | integer    | null: false                    |
-| fee         | integer    | null: false                    |
-| perfecture  | integer    | null: false                    |
-| day         | integer    | null: false                    |
-| price       | integer    | null: false                    |
-| user        | references | null: false, foreign_key: true |
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| name          | string     | null: false                    |
+| description   | text       | null: false                    |
+| category_id   | integer    | null: false                    |
+| status_id     | integer    | null: false                    |
+| fee_id        | integer    | null: false                    |
+| perfecture_id | integer    | null: false                    |
+| day_id        | integer    | null: false                    |
+| price         | integer    | null: false                    |
+| user          | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_one :consumers
+- has_one :consumer
 
 ## consumers テーブル
 
@@ -46,20 +46,20 @@
 
 ### Association
 
-- has_one :user
-- has_one :item
-- has_many :addresses
+- belongs_to :user
+- belongs_to :item
+- has_one :address
 
 ## addresses テーブル
 
-| Column       | Type       | Options                        |
-| ------------ | ---------- | ------------------------------ |
-| postcode     | string     | null: false                    |
-| state        | string     | null: false                    |
-| city         | string     | null: false                    |
-| address      | string     | null: false                    |
-| bulding      | string     |                                |
-| phone_number | string     | null: false                    |
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| postcode      | string     | null: false                    |
+| perfecture_id | integer    | null: false                    |
+| city          | string     | null: false                    |
+| address       | string     | null: false                    |
+| bulding       | string     |                                |
+| phone_number  | string     | null: false                    |
 
 ### Association
 
