@@ -10,7 +10,7 @@
 | fristname          | string | null: false               |
 | lastname           | string | null: false               |
 | fristname_kana     | string | null: false               |
-| lastname_kane      | string | null: false               |
+| lastname_kana      | string | null: false               |
 | birth_date         | date   | null: false               |
 
 ### Association
