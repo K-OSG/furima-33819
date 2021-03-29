@@ -131,7 +131,9 @@
          <div class='item-img-content'>
            <%= image_tag item.image, class: "item-img" %>
            <div class='sold-out'>
+           <% if item.consumer.present?%>
              <span>Sold Out!!</span>
+           <% end %>
            </div>
          </div>
          <div class='item-info'>
