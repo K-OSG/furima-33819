@@ -3,11 +3,22 @@ require 'rails_helper'
 RSpec.describe ConsumerAddress, type: :model do
   describe "商品購入機能" do
     before do
+      @user = FactoryBot.create(:user)
+      @item = FactoryBot.create(:item)
       @consumer_address = FactoryBot.build(:consumer_address)
+      @consumer_address.user_id = @user.id
+      @consumer_address.item_id = @item.id
+      @consumer_address.save
+      sleep 0.1
     end
   
     context '商品購入可能時' do
-      it '全てのデータが正しく存在すれば出品可能' do
+      it '全てのデータが正しく存在すれば購入可能' do
+        expect(@consumer_address).to be_valid
+      end
+
+      it '建物名がなくても購入可能' do
+        @consumer_address.bulding = nil
         expect(@consumer_address).to be_valid
       end
     end
@@ -61,6 +72,29 @@ RSpec.describe ConsumerAddress, type: :model do
         expect(@consumer_address.errors.full_messages).to include("Phone number is invalid")
       end
     
+      it 'user_idがないと購入不可' do
+        @consumer_address.user_id = nil
+        @consumer_address.valid?
+        expect(@consumer_address.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idがないと購入不可' do
+        @consumer_address.item_id = nil
+        @consumer_address.valid?
+        expect(@consumer_address.errors.full_messages).to include("Item can't be blank")
+      end
+
+      it 'phone_numberが12桁以上では購入不可' do
+        @consumer_address.phone_number = "0901234567891"
+        @consumer_address.valid?
+        expect(@consumer_address.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
+      end
+
+      it 'phone_numberが英数字混合では購入不可' do
+        @consumer_address.phone_number = "090aaaa1111"
+        @consumer_address.valid?
+        expect(@consumer_address.errors.full_messages).to include("Phone number is invalid")
+      end
     end
   end  
 end

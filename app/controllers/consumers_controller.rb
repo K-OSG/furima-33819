@@ -1,12 +1,9 @@
 class ConsumersController < ApplicationController
   before_action :authenticate_user!, only:[:index, :create]
   before_action :index_item, only:[:index, :create]
-  before_action :soldout_item_return, only: :index
+  before_action :soldout_item_return, only: [:index, :create]
   def index
     @consumer_address = ConsumerAddress.new
-    if @item.user == current_user
-      redirect_to root_path
-    end
   end
 
   def create
@@ -22,7 +19,7 @@ class ConsumersController < ApplicationController
   
   private
   def consumer_params
-    params.require(:consumer_address).permit(:postcode, :perfecture_id, :city, :address, :phone_number).merge(user_id: current_user.id, token: params[:token], consumer_id: current_user.id, item_id: params[:item_id])
+    params.require(:consumer_address).permit(:postcode, :perfecture_id, :city, :address, :phone_number).merge(user_id: current_user.id, token: params[:token], item_id: params[:item_id])
   end
 
   def index_item
@@ -30,7 +27,9 @@ class ConsumersController < ApplicationController
   end
 
   def soldout_item_return
-    redirect_to root_path if @item.consumer.present?
+    if @item.user == current_user || @item.consumer.present?
+    redirect_to root_path
+    end
   end
 
   def pay_item

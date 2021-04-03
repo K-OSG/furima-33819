@@ -5,10 +5,10 @@ FactoryBot.define do
     city {"あああ"}
     address {"いいい12-34"}
     bulding {"さしすせそ103"}
-    phone_number { 12300004567 }
+    phone_number { '12300004567' }
     token {"tok_abcdefghijk00000000000000000"}
-    item_id {6}
-    user_id {6}
-    consumer_id {user_id}
+    # item_id {@item_id}
+    # user_id {@user_id}
+    # consumer_id {user_id}
   end
 end
