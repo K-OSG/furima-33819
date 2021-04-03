@@ -49,7 +49,7 @@ class ItemsController < ApplicationController
   end
   
   def return_root
-    unless @item.user.id == current_user.id
+    if @item.user.id != current_user.id || @item.consumer.present?
       redirect_to root_path
     end
   end
