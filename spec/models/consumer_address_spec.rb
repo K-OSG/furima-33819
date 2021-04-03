@@ -43,7 +43,7 @@ RSpec.describe ConsumerAddress, type: :model do
       end
     
       it 'perfecture_idを選択しないと購入不可' do
-        @consumer_address.perfecture_id = "1"
+        @consumer_address.perfecture_id = 1
         @consumer_address.valid?
         expect(@consumer_address.errors.full_messages).to include("Perfecture can't be blank")
       end
