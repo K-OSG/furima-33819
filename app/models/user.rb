@@ -6,17 +6,26 @@ class User < ApplicationRecord
   has_many :items
   has_many :consumers
 
-  validates :password, format:{with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{7,}/}
-  with_options presence: true do
-    validates :nickname
-    with_options format:{ with: /\A[ぁ-んァ-ヶ一-龥々]+\z/} do
+    with_options allow_blank: true do
+      with_options format:{ with: /\A[ぁ-んァ-ヶ一-龥々]+\z/} do
+        validates :fristname
+        validates :lastname
+      end
+      with_options format:{with:/\A[ァ-ヶー－]+\z/} do
+        validates :fristname_kana
+        validates :lastname_kana
+      end
+      with_options format:{with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}/} do
+      validates :password
+      end
+    end
+    with_options presence: true do
+      validates :password
+      validates :nickname
       validates :fristname
       validates :lastname
-    end
-    with_options format:{with:/\A[ァ-ヶー－]+\z/} do
       validates :fristname_kana
       validates :lastname_kana
+      validates :birth_date
     end
-    validates :birth_date
-  end
 end
